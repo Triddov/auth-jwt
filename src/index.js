@@ -4,12 +4,21 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
+import router from './router/router.js';
+
+
 dotenv.config( {path: '.dev.env'} );
 const PORT = process.env.PORT || 80;
 const DB_CONNECT_URL = process.env.DB_URL || '';
 
 
 const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+app.use('/api', router);
+
 
 const start = async () => {
     try {
