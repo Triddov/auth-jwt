@@ -10,7 +10,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon -V src/index.js localhost 1234",
+    "start:dev": "nodemon -V src/index.js",
     "start:prod": ""
   },
   "devDependencies": {
@@ -19,6 +19,9 @@
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.0"
   }
 }
