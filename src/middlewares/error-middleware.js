@@ -13,4 +13,4 @@ const errorMiddleware = (err, req, res, next) => {
     return res.status(500).json({message: `Unexpected error: ${err.message}`});
 }
 
-export default errorMiddleware();
+export default errorMiddleware;

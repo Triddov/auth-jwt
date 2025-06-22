@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import uuid from "uuid";
+import { v4 as uuid_v4 } from "uuid";
 
 import UserModel from "../models/user-model.js";
 import mailService from "./mail-service.js";
@@ -18,7 +18,7 @@ class UserService {
         }
 
         const hashPassword = await bcrypt.hash(password, 7);
-        const activationLink = uuid.v4();
+        const activationLink = uuid_v4();
         const user = await UserModel.create({email, password: hashPassword, activationLink});
 
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
