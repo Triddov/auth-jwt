@@ -1,0 +1,32 @@
+import jwt from 'jsonwebtoken';
+import tokenModel from "../models/token-model.js";
+
+class TokenService {
+
+    generateTokens(payload) {
+
+        const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {
+            expiresIn: process.env.JWT_ACCESS_EXPIRE
+        });
+        const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
+            expiresIn: process.env.JWT_REFRESH_EXPIRE
+        });
+
+        return {
+            accessToken,
+            refreshToken
+        }
+    }
+
+    async saveToken(userId, refreshToken) {
+        const tokenData = await tokenModel.findOne({user: userId});
+        if (tokenData) {
+            tokenData.refreshToken = refreshToken;
+            return tokenData;
+        }
+        const token = await tokenModel.create({user: userId, refreshToken});
+        return token
+    }
+}
+
+export default new TokenService();
