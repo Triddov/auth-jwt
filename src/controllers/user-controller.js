@@ -3,7 +3,6 @@ import { validationResult } from "express-validator";
 import ApiError from "../exceptions/api-error.js";
 
 
-
 class UserController {
 
     async registration(req, res, next) {
@@ -74,8 +73,8 @@ class UserController {
 
     async getUsers(req, res, next) {
         try {
-
-
+            const users = await userService.getAllUsers();
+            return res.json(users);
         } catch (err) {
             next(err);
         }
